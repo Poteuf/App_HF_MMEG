@@ -41,7 +41,11 @@ namespace AppMMEG.DLL
         EvolvedHarpies,
         Harpies,
         // Zone 2
-        Machin
+        Minotaurs,
+        Snakeflies,
+        EvolvedSerpentflies,
+        Serpentflies,
+        EvolvedMinotaurs
         // Zone 3
         // Zone 4
         // Zone 5
@@ -60,7 +64,13 @@ namespace AppMMEG.DLL
             {E_NomEnnemiSucces.ArcaneBirds , new TitreSuccesML(){En = "Arcane Birds", Fr = "Oiseaux Arcanique" }  },
             {E_NomEnnemiSucces.EvolvedArcaneEagles , new TitreSuccesML(){En = "Evolved Arcane Eagles", Fr = "Aigles Arcanique Evolués" }  },
             {E_NomEnnemiSucces.EvolvedHarpies , new TitreSuccesML(){En = "Evolved Harpies", Fr = "Harpies Evoluées" }  },
-            {E_NomEnnemiSucces.Harpies , new TitreSuccesML(){En = "Harpies", Fr = "Harpies" }  }
+            {E_NomEnnemiSucces.Harpies , new TitreSuccesML(){En = "Harpies", Fr = "Harpies" }  },
+            // Ile 2
+            {E_NomEnnemiSucces.Minotaurs , new TitreSuccesML(){En = "Minotaurs", Fr = "Minotaures" }  },
+            {E_NomEnnemiSucces.EvolvedMinotaurs , new TitreSuccesML(){En = "Evolved Minotaurs", Fr = "Minotaures évolués" }  },
+            {E_NomEnnemiSucces.Snakeflies , new TitreSuccesML(){En = "Snakeflies", Fr = "Mouches-Aspics" }  },
+            {E_NomEnnemiSucces.Serpentflies , new TitreSuccesML(){En = "Serpentflies", Fr = "Mouches-Serpents" }  },
+            {E_NomEnnemiSucces.EvolvedSerpentflies , new TitreSuccesML(){En = "Evolved Serpentflies", Fr = "Mouches-Serpents évoluées" }  }
         };
     }
     public class TitreSuccesML
@@ -73,11 +83,11 @@ namespace AppMMEG.DLL
     {
         #region:Attributs
         public E_NomEnnemiSucces CreatureAKill { get; }
-        public int Nombre { get; }
+        public uint Nombre { get; }
         #endregion
 
-        public SuccesKill (E_NomEnnemiSucces creatureAKill, int nombre) : base($"{MMEGValues.CorresNomsSuccesML[creatureAKill].En}", $"Kill {nombre.ToString()} {MMEGValues.CorresNomsSuccesML[creatureAKill].En}")
-        {            
+        public SuccesKill(E_NomEnnemiSucces creatureAKill, uint nombre) : base($"{MMEGValues.CorresNomsSuccesML[creatureAKill].En}", $"Kill {nombre.ToString()} {MMEGValues.CorresNomsSuccesML[creatureAKill].En}")
+        {
             CreatureAKill = creatureAKill;
             Nombre = nombre;
         }
@@ -357,6 +367,15 @@ namespace AppMMEG.DLL
                 case "Harpy":
                     TitreSucces = E_NomEnnemiSucces.Harpies;
                     break;
+                case "Minotaur":
+                    TitreSucces = E_NomEnnemiSucces.Minotaurs;
+                    break;
+                case "SerpentFly":
+                    TitreSucces = E_NomEnnemiSucces.Serpentflies;
+                    break;
+                case "SnakeFly":
+                    TitreSucces = E_NomEnnemiSucces.Snakeflies;
+                    break;
                 default:
                     break;
             }
@@ -367,6 +386,12 @@ namespace AppMMEG.DLL
                     break;
                 case "Harpy":
                     TitreSucces = E_NomEnnemiSucces.EvolvedHarpies;
+                    break;
+                case "Minotaur":
+                    TitreSucces = E_NomEnnemiSucces.EvolvedMinotaurs;
+                    break;
+                case "SerpentFly":
+                    TitreSucces = E_NomEnnemiSucces.EvolvedSerpentflies;
                     break;
                 default:
                     break;

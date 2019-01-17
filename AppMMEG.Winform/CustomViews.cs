@@ -15,10 +15,15 @@ namespace AppMMEG.Winform
         public SuccesKill Achiev { get; }
         public int NbRefArea { get; }
 
+        public uint NbRestToKill { get
+            {
+                return Achiev.Nombre - uint.Parse(TextBoxActualKills.Text);
+            }
+        }
+
         private Label LabelTitle { get; set; }
         private Label LabelMaxKills { get; set; }
         private TextBox TextBoxActualKills { get; set; }
-
 
         private const int C_SIZE_LABEL_TITLE = 150;
 
@@ -47,10 +52,12 @@ namespace AppMMEG.Winform
             {
                 Name = $"tb_{Achiev.CreatureAKill.ToString()}",
                 Location = new Point(C_SIZE_LABEL_TITLE + 5, 0),
-                RightToLeft = RightToLeft.Yes
+                RightToLeft = RightToLeft.Yes,
+                Text = "0"
             };
             TextBoxActualKills.TextChanged += new EventHandler(tb_ControlValue);
             TextBoxActualKills.KeyPress += new KeyPressEventHandler(tb_ControlKeyPress);
+            TextBoxActualKills.Validated += new EventHandler(tb_ControlValidated);
             Controls.Add(TextBoxActualKills);
 
             // On gère le label des kills à faire
@@ -70,6 +77,10 @@ namespace AppMMEG.Winform
             LabelMaxKills.Visible = isVisible;
             TextBoxActualKills.Visible = isVisible;
         }
+        public Boolean IsVisible()
+        {
+            return LabelTitle.Visible && LabelMaxKills.Visible && TextBoxActualKills.Visible;
+        }
 
         private void tb_ControlKeyPress(object sender, KeyPressEventArgs e)
         {
@@ -84,7 +95,14 @@ namespace AppMMEG.Winform
 
             if (myTb.Text != "" && int.Parse(myTb.Text) > Achiev.Nombre)
             {
-                myTb.Text = "";
+                myTb.Text = "0";
+            }
+        }
+        private void tb_ControlValidated(object sender, EventArgs e)
+        {
+            if (((TextBox)sender).Text == "")
+            {
+                ((TextBox)sender).Text = "0";
             }
         }
     }

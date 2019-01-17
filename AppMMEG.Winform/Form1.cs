@@ -15,8 +15,8 @@ namespace AppMMEG.Winform
 {
     public partial class Form1 : Form
     {
-        //private Monde MonMonde { get; set; }
-        private Monde MonMonde2 { get; set; }
+        private Monde MonMonde { get; set; }
+        private PlanTraitement MonPlan { get; set; }
 
         public Form1()
         {
@@ -25,61 +25,27 @@ namespace AppMMEG.Winform
             rtbGeneral.ForeColor = Color.DarkRed;
             rtbGeneral.AppendText("Salut, bienvenue sur l'optimiseur de HF pour MMEG\n\n\n");
 
-
             var truc = new import();
             var bidule = truc.construireListElement();
 
             GenererMonde();
 
-            //Initialisation affichage
+            // Initialisation affichage
 
-            cb_Iles.DataSource = MonMonde2.MesZones.ToList();
+            cb_Iles.DataSource = MonMonde.MesZones.ToList();
             cb_Iles.DisplayMember = "NomFormate";
 
-            AfficherInfosMonde();
-
-            // Appel traitement Ile 1
-
-            PlanTraitement monPlan = new PlanTraitement()
-            {
-                Algorithme = E_TypeTraitement.AlgoMaxTargetNumber,
-                RunsPossibles = MonMonde2.MesZones.Find(f => f.Numero == 1).MesEtages,
-                EnnemisAElliminer = new Dictionary<E_NomEnnemiSucces, uint> {
-                    { E_NomEnnemiSucces.ArcaneEagles, 1500-960},
-                    { E_NomEnnemiSucces.ArcaneBirds, 1500-906},
-                    { E_NomEnnemiSucces.EvolvedArcaneEagles, 1500-436},
-                    { E_NomEnnemiSucces.EvolvedHarpies, 1000-678},
-                    { E_NomEnnemiSucces.Harpies, 1000-1000}
-                }
-            };
-
-            AlgorithmeHandler algo = new AlgorithmeHandler(monPlan);
-            var result = algo.EffectuerTraitement();
-
-            rtbGeneral.AppendText("Traitement terminé\n");
-
-            int j = 1;
-            foreach (var scenar in result.Where(u => u.NbDeRunTotal() == result.Min(f => f.NbDeRunTotal())).Distinct())
-            {
-                rtbGeneral.AppendText($"--+-- Scenario le plus performant ({j}) - {scenar.NbDeRunTotal()} Runs - {scenar.CoutTotalScenario()} Energie :\n\n");
-                foreach (var item in scenar.ObtenirLesRun())
-                {
-                    rtbGeneral.AppendText($"{item}\n");
-                }
-                j++;
-                rtbGeneral.AppendText("\n");
-            }
+            //AfficherInfosMonde();
         }
 
         private void GenererMonde()
         {
-            //MonMonde = Initialisation.InitialiserMondeIlesMorcelees();
-            MonMonde2 = InitialisationV2.InitialiserMondeIlesMorcelees();
+            MonMonde = InitialisationV2.InitialiserMondeIlesMorcelees();
         }
 
         private void AfficherInfosMonde()
         {
-            foreach (Zone z in MonMonde2.MesZones)
+            foreach (Zone z in MonMonde.MesZones)
             {
                 AfficherInfosZone(z);
             }
@@ -113,28 +79,45 @@ namespace AppMMEG.Winform
             }
             rtbGeneral.AppendText("\n");
         }
+        private void GenererPlanTraitement()
+        {
+            var mySelectedArea = (Zone)cb_Iles.SelectedValue;
+            var enemiesToKill = new Dictionary<E_NomEnnemiSucces, uint>();
+
+            foreach (SuccessKillPanel myPnl in panelGeneral.Controls.OfType<SuccessKillPanel>().Where(f => f.IsVisible()))
+            {
+                enemiesToKill.Add(myPnl.Achiev.CreatureAKill, myPnl.NbRestToKill);
+            }
+
+            MonPlan = new PlanTraitement()
+            {
+                Algorithme = E_TypeTraitement.AlgoMaxTargetNumber,
+                RunsPossibles = mySelectedArea.MesEtages,
+                EnnemisAElliminer = enemiesToKill
+            };
+        }
 
         private void cb_Iles_SelectedValueChanged(object sender, EventArgs e)
         {
             if (cb_Iles.SelectedValue.GetType() == typeof(Zone))
             {
-                var maZone = (Zone)cb_Iles.SelectedValue;
+                var mySelectedArea = (Zone)cb_Iles.SelectedValue;
                 rtbGeneral.Clear();
-                AfficherInfosZone(maZone);
+                AfficherInfosZone(mySelectedArea);
                 // On affiche que les panels concernés
                 foreach (SuccessKillPanel myPnl in panelGeneral.Controls.OfType<SuccessKillPanel>())
                 {
-                    myPnl.SetVisible(myPnl.NbRefArea == maZone.Numero);
+                    myPnl.SetVisible(myPnl.NbRefArea == mySelectedArea.Numero);
                 }
 
                 var i = 1;
-                if (maZone.MesSucces != null)
+                if (mySelectedArea.MesSucces != null)
                 {
-                    foreach (SuccesKill achiev in maZone.MesSucces)
+                    foreach (SuccesKill achiev in mySelectedArea.MesSucces)
                     {
                         if (panelGeneral.Controls.Find(Name = $"pnl_{achiev.CreatureAKill.ToString()}", false).Count() == 0)
                         {
-                            SuccessKillPanel skp = new SuccessKillPanel(achiev, maZone.Numero);
+                            SuccessKillPanel skp = new SuccessKillPanel(achiev, mySelectedArea.Numero);
                             panelGeneral.Controls.Add(skp);
                             skp.Location = new Point(cb_Iles.Location.X, cb_Iles.Location.Y + 25 + 30 * i);
 
@@ -144,5 +127,34 @@ namespace AppMMEG.Winform
                 }
             }
         }
+        private void btn_traitement_Click(object sender, EventArgs e)
+        {
+            GenererPlanTraitement();
+
+            AlgorithmeHandler algo = new AlgorithmeHandler(MonPlan);
+            var result = algo.EffectuerTraitement();
+
+            rtbGeneral.Clear();
+
+            if (result == null)
+            {
+                rtbGeneral.AppendText($"Aucun ennemi à abattre");
+            }
+            else
+            {
+                rtbGeneral.AppendText("Traitement terminé\n");
+                int j = 1;
+                foreach (var scenar in result.Where(u => u.NbDeRunTotal() == result.Min(f => f.NbDeRunTotal())).Distinct())
+                {
+                    rtbGeneral.AppendText($"--+-- Scenario le plus performant ({j}) - {scenar.NbDeRunTotal()} Runs - {scenar.CoutTotalScenario()} Energie :\n\n");
+                    foreach (var item in scenar.ObtenirLesRun())
+                    {
+                        rtbGeneral.AppendText($"{item}\n");
+                    }
+                    j++;
+                    rtbGeneral.AppendText("\n");
+                }
+            }
+        }        
     }
 }

@@ -17,6 +17,11 @@ namespace AppMMEG.DLL
         public E_TypeTraitement Algorithme { get; set; }
         public List<Etage> RunsPossibles { get; set; }
         public Dictionary<E_NomEnnemiSucces, uint> EnnemisAElliminer { get; set; }
+
+        public Boolean IsEnemiesLeft()
+        {
+            return EnnemisAElliminer.Sum(x => x.Value) == 0 ? false : true;
+        }
     }
 
     public class ResultatTraitement
@@ -49,13 +54,16 @@ namespace AppMMEG.DLL
 
         public List<MaxTargetNumberSimulationWorker> EffectuerTraitement()
         {
-            switch (MonPlan.Algorithme)
+            if (MonPlan.IsEnemiesLeft())
             {
-                case E_TypeTraitement.AlgoMaxTargetNumber:
-                    return AlgoAuPlusGrandNombre2(MonPlan);
-                    //case E_TypeTraitement.AlgoEmpirique:
-                    //    var monAlgo = new AlgoEmpiricFactory2(MonPlan);
-                    //    return monAlgo.LancerTraitement();
+                switch (MonPlan.Algorithme)
+                {
+                    case E_TypeTraitement.AlgoMaxTargetNumber:
+                        return AlgoAuPlusGrandNombre2(MonPlan);
+                        //case E_TypeTraitement.AlgoEmpirique:
+                        //    var monAlgo = new AlgoEmpiricFactory2(MonPlan);
+                        //    return monAlgo.LancerTraitement();
+                }
             }
             return null;
         }

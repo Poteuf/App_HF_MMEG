@@ -32,6 +32,7 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.cb_Iles = new System.Windows.Forms.ComboBox();
             this.panelGeneral = new System.Windows.Forms.Panel();
+            this.btn_traitement = new System.Windows.Forms.Button();
             this.panelGeneral.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +56,7 @@
             // 
             // panelGeneral
             // 
+            this.panelGeneral.Controls.Add(this.btn_traitement);
             this.panelGeneral.Controls.Add(this.rtbGeneral);
             this.panelGeneral.Controls.Add(this.cb_Iles);
             this.panelGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -62,6 +64,16 @@
             this.panelGeneral.Name = "panelGeneral";
             this.panelGeneral.Size = new System.Drawing.Size(1203, 450);
             this.panelGeneral.TabIndex = 2;
+            // 
+            // btn_traitement
+            // 
+            this.btn_traitement.Location = new System.Drawing.Point(289, 356);
+            this.btn_traitement.Name = "btn_traitement";
+            this.btn_traitement.Size = new System.Drawing.Size(334, 82);
+            this.btn_traitement.TabIndex = 2;
+            this.btn_traitement.Text = "Launch Treatment";
+            this.btn_traitement.UseVisualStyleBackColor = true;
+            this.btn_traitement.Click += new System.EventHandler(this.btn_traitement_Click);
             // 
             // Form1
             // 
@@ -82,6 +94,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ComboBox cb_Iles;
         private System.Windows.Forms.Panel panelGeneral;
+        private System.Windows.Forms.Button btn_traitement;
     }
 }
 

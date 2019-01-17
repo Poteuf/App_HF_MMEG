@@ -298,12 +298,12 @@ namespace AppMMEG.Winform
             SuccesKill i1c = new SuccesKill(E_NomEnnemiSucces.EvolvedArcaneEagles, 1500);
             SuccesKill i1d = new SuccesKill(E_NomEnnemiSucces.EvolvedHarpies, 1000);
             SuccesKill i1e = new SuccesKill(E_NomEnnemiSucces.Harpies, 1000);
-            //// Succès Zone 2
-            //SuccesKill i1a = new SuccesKill(E_NomEnnemiSucces.ArcaneBirds, 1500);
-            //SuccesKill i1b = new SuccesKill(E_NomEnnemiSucces.ArcaneEagles, 1500);
-            //SuccesKill i1c = new SuccesKill(E_NomEnnemiSucces.EvolvedArcaneEagles, 1500);
-            //SuccesKill i1d = new SuccesKill(E_NomEnnemiSucces.EvolvedHarpies, 1000);
-            //SuccesKill i1e = new SuccesKill(E_NomEnnemiSucces.Harpies, 1000);
+            // Succès Zone 2
+            SuccesKill i2a = new SuccesKill(E_NomEnnemiSucces.Minotaurs, 1500);
+            SuccesKill i2b = new SuccesKill(E_NomEnnemiSucces.Snakeflies, 1500);
+            SuccesKill i2c = new SuccesKill(E_NomEnnemiSucces.Serpentflies, 1500);
+            SuccesKill i2d = new SuccesKill(E_NomEnnemiSucces.EvolvedMinotaurs, 1500);
+            SuccesKill i2e = new SuccesKill(E_NomEnnemiSucces.EvolvedSerpentflies, 1500);
             //// Succès Zone 3
             //SuccesKill i1a = new SuccesKill(E_NomEnnemiSucces.ArcaneBirds, 1500);
             //SuccesKill i1b = new SuccesKill(E_NomEnnemiSucces.ArcaneEagles, 1500);
@@ -366,7 +366,7 @@ namespace AppMMEG.Winform
                             Ile1.AjouterEnnemi(new Ennemi(elt.szCreature, elt.szCreatureDeBase), elt.iLevel, corresDifficulte[elt.eDifficulte]);
                             break;
                         case element.ile.IceCaves:
-                            Ile2 = Ile2 ?? new Zone(2, element.ile.IceCaves.ToString());
+                            Ile2 = Ile2 ?? new Zone(2, element.ile.IceCaves.ToString()) { MesSucces = new List<Succes>() { i2a, i2b, i2c, i2d, i2e } };
                             Ile2.AjouterEnnemi(new Ennemi(elt.szCreature, elt.szCreatureDeBase), elt.iLevel, corresDifficulte[elt.eDifficulte]);
                             break;
                         case element.ile.Volcano:
