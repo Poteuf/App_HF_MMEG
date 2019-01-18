@@ -15,11 +15,7 @@ namespace AppMMEG.Winform
         public SuccesKill Achiev { get; }
         public int NbRefArea { get; }
 
-        public uint NbRestToKill { get
-            {
-                return Achiev.Nombre - uint.Parse(TextBoxActualKills.Text);
-            }
-        }
+        public uint NbRestToKill { get { return Achiev.Nombre - uint.Parse(TextBoxActualKills.Text); } }
 
         private Label LabelTitle { get; set; }
         private Label LabelMaxKills { get; set; }
@@ -68,14 +64,11 @@ namespace AppMMEG.Winform
                 Location = new Point(C_SIZE_LABEL_TITLE + TextBoxActualKills.Width + 10, 4)
             };
             Controls.Add(LabelMaxKills);
-
         }
 
         public void SetVisible(Boolean isVisible)
         {
-            LabelTitle.Visible = isVisible;
-            LabelMaxKills.Visible = isVisible;
-            TextBoxActualKills.Visible = isVisible;
+            Visible = isVisible;
         }
         public Boolean IsVisible()
         {

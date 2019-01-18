@@ -45,8 +45,14 @@ namespace AppMMEG.DLL
         Snakeflies,
         EvolvedSerpentflies,
         Serpentflies,
-        EvolvedMinotaurs
+        EvolvedMinotaurs,
         // Zone 3
+        Griffins,
+        Felicores,
+        Manticores,
+        YoungGriffins,
+        EvolvedManticores,
+        EvolvedGriffins
         // Zone 4
         // Zone 5
         // Zone 6
@@ -70,7 +76,14 @@ namespace AppMMEG.DLL
             {E_NomEnnemiSucces.EvolvedMinotaurs , new TitreSuccesML(){En = "Evolved Minotaurs", Fr = "Minotaures évolués" }  },
             {E_NomEnnemiSucces.Snakeflies , new TitreSuccesML(){En = "Snakeflies", Fr = "Mouches-Aspics" }  },
             {E_NomEnnemiSucces.Serpentflies , new TitreSuccesML(){En = "Serpentflies", Fr = "Mouches-Serpents" }  },
-            {E_NomEnnemiSucces.EvolvedSerpentflies , new TitreSuccesML(){En = "Evolved Serpentflies", Fr = "Mouches-Serpents évoluées" }  }
+            {E_NomEnnemiSucces.EvolvedSerpentflies , new TitreSuccesML(){En = "Evolved Serpentflies", Fr = "Mouches-Serpents évoluées" }  },
+            // Ile 3
+            {E_NomEnnemiSucces.Griffins , new TitreSuccesML(){En = "Griffins", Fr = "---" }  },
+            {E_NomEnnemiSucces.Felicores , new TitreSuccesML(){En = "Felicores", Fr = "---" }  },
+            {E_NomEnnemiSucces.Manticores , new TitreSuccesML(){En = "Manticores", Fr = "---" }  },
+            {E_NomEnnemiSucces.YoungGriffins , new TitreSuccesML(){En = "Young Griffins", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedManticores , new TitreSuccesML(){En = "Evolved Manticores", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedGriffins , new TitreSuccesML(){En = "Evolved Griffins", Fr = "---" }  }
         };
     }
     public class TitreSuccesML
@@ -358,6 +371,7 @@ namespace AppMMEG.DLL
         {
             switch (Nom)
             {
+                // Ile 1
                 case "Arcane Bird":
                     TitreSucces = E_NomEnnemiSucces.ArcaneBirds;
                     break;
@@ -367,6 +381,7 @@ namespace AppMMEG.DLL
                 case "Harpy":
                     TitreSucces = E_NomEnnemiSucces.Harpies;
                     break;
+                // Ile 2
                 case "Minotaur":
                     TitreSucces = E_NomEnnemiSucces.Minotaurs;
                     break;
@@ -376,22 +391,44 @@ namespace AppMMEG.DLL
                 case "SnakeFly":
                     TitreSucces = E_NomEnnemiSucces.Snakeflies;
                     break;
+                // Ile 3
+                case "Griffin":
+                    TitreSucces = E_NomEnnemiSucces.Griffins;
+                    break;
+                case "Felicore":
+                    TitreSucces = E_NomEnnemiSucces.Felicores;
+                    break;
+                case "Manticore":
+                    TitreSucces = E_NomEnnemiSucces.Manticores;
+                    break;
+                case "Young Griffin":
+                    TitreSucces = E_NomEnnemiSucces.YoungGriffins;
+                    break;
                 default:
                     break;
             }
             switch (NomDeBase)
             {
+                // Ile 1
                 case "Arcane Eagle":
                     TitreSucces = E_NomEnnemiSucces.EvolvedArcaneEagles;
                     break;
                 case "Harpy":
                     TitreSucces = E_NomEnnemiSucces.EvolvedHarpies;
                     break;
+                // Ile 2
                 case "Minotaur":
                     TitreSucces = E_NomEnnemiSucces.EvolvedMinotaurs;
                     break;
                 case "SerpentFly":
                     TitreSucces = E_NomEnnemiSucces.EvolvedSerpentflies;
+                    break;
+                // Ile 3
+                case "Manticore":
+                    TitreSucces = E_NomEnnemiSucces.EvolvedManticores;
+                    break;
+                case "Griffin":
+                    TitreSucces = E_NomEnnemiSucces.EvolvedGriffins;
                     break;
                 default:
                     break;

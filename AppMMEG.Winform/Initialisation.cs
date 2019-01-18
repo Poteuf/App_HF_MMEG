@@ -305,11 +305,12 @@ namespace AppMMEG.Winform
             SuccesKill i2d = new SuccesKill(E_NomEnnemiSucces.EvolvedMinotaurs, 1500);
             SuccesKill i2e = new SuccesKill(E_NomEnnemiSucces.EvolvedSerpentflies, 1500);
             //// Succès Zone 3
-            //SuccesKill i1a = new SuccesKill(E_NomEnnemiSucces.ArcaneBirds, 1500);
-            //SuccesKill i1b = new SuccesKill(E_NomEnnemiSucces.ArcaneEagles, 1500);
-            //SuccesKill i1c = new SuccesKill(E_NomEnnemiSucces.EvolvedArcaneEagles, 1500);
-            //SuccesKill i1d = new SuccesKill(E_NomEnnemiSucces.EvolvedHarpies, 1000);
-            //SuccesKill i1e = new SuccesKill(E_NomEnnemiSucces.Harpies, 1000);
+            SuccesKill i3a = new SuccesKill(E_NomEnnemiSucces.Griffins, 1500);
+            SuccesKill i3b = new SuccesKill(E_NomEnnemiSucces.Felicores, 1500);
+            SuccesKill i3c = new SuccesKill(E_NomEnnemiSucces.Manticores, 1500);
+            SuccesKill i3d = new SuccesKill(E_NomEnnemiSucces.YoungGriffins, 1500);
+            SuccesKill i3e = new SuccesKill(E_NomEnnemiSucces.EvolvedManticores, 1500);
+            SuccesKill i3f = new SuccesKill(E_NomEnnemiSucces.EvolvedGriffins, 1500);
             //// Succès Zone 4
             //SuccesKill i1a = new SuccesKill(E_NomEnnemiSucces.ArcaneBirds, 1500);
             //SuccesKill i1b = new SuccesKill(E_NomEnnemiSucces.ArcaneEagles, 1500);
@@ -370,7 +371,7 @@ namespace AppMMEG.Winform
                             Ile2.AjouterEnnemi(new Ennemi(elt.szCreature, elt.szCreatureDeBase), elt.iLevel, corresDifficulte[elt.eDifficulte]);
                             break;
                         case element.ile.Volcano:
-                            Ile3 = Ile3 ?? new Zone(3, element.ile.Volcano.ToString());
+                            Ile3 = Ile3 ?? new Zone(3, element.ile.Volcano.ToString()) { MesSucces = new List<Succes>() { i3a, i3b, i3c, i3d, i3e, i3f } };
                             Ile3.AjouterEnnemi(new Ennemi(elt.szCreature, elt.szCreatureDeBase), elt.iLevel, corresDifficulte[elt.eDifficulte]);
                             break;
                         case element.ile.MysticForest:
