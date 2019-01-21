@@ -30,6 +30,8 @@ namespace AppMMEG.Winform
 
             GenererMonde();
 
+
+
             // Initialisation affichage
 
             cb_Iles.DataSource = MonMonde.MesZones.ToList();
@@ -91,7 +93,7 @@ namespace AppMMEG.Winform
 
             MonPlan = new PlanTraitement()
             {
-                Algorithme = E_TypeTraitement.AlgoMaxTargetNumber,
+                Algorithme = E_TypeTraitement.AlgoMaxTargetNumberPerEnemi,
                 RunsPossibles = mySelectedArea.MesEtages,
                 EnnemisAElliminer = enemiesToKill
             };
@@ -143,6 +145,7 @@ namespace AppMMEG.Winform
             else
             {
                 rtbGeneral.AppendText("Traitement terminé\n");
+                rtbGeneral.AppendText($"{result.Count()} simulations effectuées\n");
                 int j = 1;
                 foreach (var scenar in result.Where(u => u.NbDeRunTotal() == result.Min(f => f.NbDeRunTotal())).Distinct())
                 {

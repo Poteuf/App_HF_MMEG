@@ -9,6 +9,7 @@ namespace AppMMEG.DLL
     public enum E_TypeTraitement
     {
         AlgoMaxTargetNumber,
+        AlgoMaxTargetNumberPerEnemi,
         AlgoEmpiric
     }
 
@@ -32,7 +33,12 @@ namespace AppMMEG.DLL
 
     //public class Scenario
     //{
-    //    public Dictionary<Run, uint> MesRuns { get; set; }
+    //    public Scenario(Etage etg, int nbRuns)
+    //    {
+
+    //    }
+
+    //    public Dictionary<Etage, uint> MesRuns { get; set; }
     //}
 
     //public class Run
@@ -52,14 +58,18 @@ namespace AppMMEG.DLL
             MesScenarii = new List<MaxTargetNumberSimulationWorker>();
         }
 
-        public List<MaxTargetNumberSimulationWorker> EffectuerTraitement()
+        public List<AlgoMaxTargetNumberPerEnemiSimulationWorker> EffectuerTraitement()
         {
             if (MonPlan.IsEnemiesLeft())
             {
                 switch (MonPlan.Algorithme)
                 {
-                    case E_TypeTraitement.AlgoMaxTargetNumber:
-                        return AlgoAuPlusGrandNombre2(MonPlan);
+                    //case E_TypeTraitement.AlgoMaxTargetNumber:
+                    //    return AlgoAuPlusGrandNombre2(MonPlan);
+                    case E_TypeTraitement.AlgoMaxTargetNumberPerEnemi:
+                        var monAlgo = new AlgoMaxTargetNumberPerEnemiFactory(MonPlan);
+                        return monAlgo.EffectuerTraitement();
+
                         //case E_TypeTraitement.AlgoEmpirique:
                         //    var monAlgo = new AlgoEmpiricFactory2(MonPlan);
                         //    return monAlgo.LancerTraitement();
@@ -140,7 +150,7 @@ namespace AppMMEG.DLL
             // Sélection des étages avec le plus grand nombre
             var nbEnnemisMax = etageNbEnnemis.OrderByDescending(f => f.Value).First().Value;
 
-            foreach (var etg in etageNbEnnemis.Where(f => f.Value == nbEnnemisMax))
+            foreach (var etg in etageNbEnnemis.Where(f => f.Value == nbEnnemisMax || f.Value == nbEnnemisMax - 1))
             {
                 var monScenario = new MaxTargetNumberSimulationWorker(plan.EnnemisAElliminer, etg.Key, nbEnnemisMax);
                 GenererScenarii(monScenario);
@@ -223,6 +233,8 @@ namespace AppMMEG.DLL
             return GenererDicoEtageNbEnnemis(plan).First().Value;
         }
     }
+
+
 
     class AlgoMaxTargetNumberFactory
     {
@@ -418,6 +430,188 @@ namespace AppMMEG.DLL
                 }
             }
             EtagesEffectues[GetEtageEnCours()]++;
+        }
+    }
+
+    /// <summary>
+    /// Algo de traitement des représentation max d'un ennemi donné => On choisi un ennemi et on le pourri là où il est le plus présent, une fois finit on passe aux ennemis suivants
+    /// </summary>
+    class AlgoMaxTargetNumberPerEnemiFactory
+    {
+        private PlanTraitement PlanGeneral { get; set; }
+        private List<AlgoMaxTargetNumberPerEnemiSimulationWorker> Scenarii { get; set; }
+
+        public AlgoMaxTargetNumberPerEnemiFactory(PlanTraitement lePlan)
+        {
+            PlanGeneral = lePlan;
+            Scenarii = new List<AlgoMaxTargetNumberPerEnemiSimulationWorker>();
+        }
+
+        public List<AlgoMaxTargetNumberPerEnemiSimulationWorker> EffectuerTraitement()
+        {
+            TraiterPattern();
+            return Scenarii;
+        }
+
+        private void TraiterPattern(AlgoMaxTargetNumberPerEnemiSimulationWorker worker = null)
+        {
+            if (worker != null)
+            {
+                worker.EffectuerRunsEtageEnCours();
+            }
+            else
+            {
+                foreach (var ennemi in PlanGeneral.EnnemisAElliminer.Keys)
+                {
+                    if (PlanGeneral.EnnemisAElliminer[ennemi] > 0)
+                    {
+                        foreach (var etg in ObtenirListeEtagesMaxNbEnnemi(ennemi))
+                        {
+                            var myWorker = new AlgoMaxTargetNumberPerEnemiSimulationWorker(etg, ennemi, PlanGeneral.EnnemisAElliminer);
+                            TraiterPattern(myWorker);
+                        }
+                    }
+                }
+            }
+            if (worker != null)
+            {
+                if (worker.IsCiblesRestantes())
+                {
+                    foreach (var ennemi in PlanGeneral.EnnemisAElliminer.Keys)
+                    {
+                        if (worker.CiblesAAbattre[ennemi] > 0)
+                        {
+                            foreach (var etg in ObtenirListeEtagesMaxNbEnnemi(ennemi))
+                            {
+                                var myWorker = new AlgoMaxTargetNumberPerEnemiSimulationWorker(etg, ennemi, worker);
+                                TraiterPattern(myWorker);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Scenarii.Add(worker);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Retourne la liste des etages qui contiennent le plus d'ennemis d'un type donné
+        /// </summary>
+        private List<Etage> ObtenirListeEtagesMaxNbEnnemi(E_NomEnnemiSucces typeEnnemi)
+        {
+            int nb = 0;
+            foreach (var etg in PlanGeneral.RunsPossibles)
+            {
+                if (etg.ObtenirNbEnnemis(typeEnnemi) > nb)
+                {
+                    nb = etg.ObtenirNbEnnemis(typeEnnemi);
+                }
+            }
+            return PlanGeneral.RunsPossibles.Where(f => f.ObtenirNbEnnemis(typeEnnemi) == nb).ToList();
+        }
+    }
+
+    public class AlgoMaxTargetNumberPerEnemiSimulationWorker
+    {
+        private Etage EtageEnCours { get; set; }
+        private E_NomEnnemiSucces TypeEnnemiEnCours { get;set;}
+        public Dictionary<E_NomEnnemiSucces, uint> CiblesAAbattre { get; set; }
+        private int Overkills { get; set; }
+        private Dictionary<Etage, int> EtagesEffectues { get; set; }
+
+        internal AlgoMaxTargetNumberPerEnemiSimulationWorker(Etage etageEnCours, E_NomEnnemiSucces typeEnnemiEnCours, AlgoMaxTargetNumberPerEnemiSimulationWorker oldWorker)
+        {
+            EtagesEffectues = oldWorker.EtagesEffectues.ToDictionary(x => x.Key, x => x.Value);
+            if (!EtagesEffectues.ContainsKey(etageEnCours))
+            {
+                EtagesEffectues.Add(new Etage(etageEnCours.Difficulte, etageEnCours.MesVagues, etageEnCours.Numero, etageEnCours.NomZone), 0);
+            }
+            CiblesAAbattre = oldWorker.CiblesAAbattre.ToDictionary(x => x.Key, x => x.Value);
+            Overkills = oldWorker.Overkills;
+            EtageEnCours = etageEnCours;
+            TypeEnnemiEnCours = typeEnnemiEnCours;
+        }
+
+        internal AlgoMaxTargetNumberPerEnemiSimulationWorker(Etage etageEnCours, E_NomEnnemiSucces typeEnnemiEnCours, Dictionary<E_NomEnnemiSucces, uint> cibles)
+        {
+            EtagesEffectues = new Dictionary<Etage, int>() { { new Etage(etageEnCours.Difficulte, etageEnCours.MesVagues, etageEnCours.Numero, etageEnCours.NomZone), 0 } };
+            EtageEnCours = etageEnCours;
+            TypeEnnemiEnCours = typeEnnemiEnCours;
+            CiblesAAbattre = cibles.ToDictionary(x => x.Key, x => x.Value);
+            Overkills = 0;
+        }
+
+        private bool IsCiblesRestantesEtageActuel()
+        {
+            foreach (Ennemi e in EtageEnCours.ObtenirTousLesEnnemis())
+            {
+                if (CiblesAAbattre.ContainsKey(TypeEnnemiEnCours) && CiblesAAbattre[TypeEnnemiEnCours] > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        internal bool IsCiblesRestantes()
+        {
+            foreach (var cible in CiblesAAbattre)
+            {
+                if (cible.Value > 0) { return true; }
+            }
+            return false;
+        }
+
+        public int NbDeRunTotal()
+        {
+            return EtagesEffectues.Sum(f => f.Value);
+        }
+
+        public List<string> ObtenirLesRun()
+        {
+            var maListe = new List<string>();
+            foreach (var item in EtagesEffectues.Where(f => f.Value != 0).OrderByDescending(k => k.Value))
+            {
+                maListe.Add($"{item.Value} runs sur l'étage {item.Key.Numero} en {item.Key.Difficulte.ToString()} ({item.Key.NomZone})");
+            }
+            return maListe;
+        }
+
+        public int CoutTotalScenario()
+        {
+            int result = 0;
+            foreach (var etg in EtagesEffectues)
+            {
+                result += etg.Key.Cout * etg.Value;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Lance la simulation jusqu'à ce que l'ennemi choisi soit terminé!
+        /// </summary>
+        internal void EffectuerRunsEtageEnCours()
+        {
+            while (IsCiblesRestantesEtageActuel())
+            {
+                foreach (Ennemi e in EtageEnCours.ObtenirTousLesEnnemis())
+                {
+                    if (CiblesAAbattre.ContainsKey(e.TitreSucces))
+                    {
+                        if (CiblesAAbattre[e.TitreSucces] > 0)
+                        {
+                            CiblesAAbattre[e.TitreSucces]--;
+                        }
+                        else
+                        {
+                            Overkills++;
+                        }
+                    }
+                }
+                EtagesEffectues[EtageEnCours]++;
+            }
         }
     }
 }

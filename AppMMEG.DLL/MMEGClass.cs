@@ -34,6 +34,8 @@ namespace AppMMEG.DLL
     }
     public enum E_NomEnnemiSucces
     {
+        // AUCUN
+        NONE,
         // Zone 1
         ArcaneEagles,
         ArcaneBirds,
@@ -256,6 +258,19 @@ namespace AppMMEG.DLL
             return maListe;
         }
 
+        public int ObtenirNbEnnemis(E_NomEnnemiSucces typeEnnemi)
+        {
+            int nb = 0;
+            foreach (var e in ObtenirTousLesEnnemis())
+            {
+                if (e.TitreSucces == typeEnnemi)
+                {
+                    nb++;
+                }
+            }
+            return nb;
+        }
+
         public void AjouteEnnemi(Ennemi e)
         {
             MesVagues[0].AjouterEnnemi(e);
@@ -405,33 +420,38 @@ namespace AppMMEG.DLL
                     TitreSucces = E_NomEnnemiSucces.YoungGriffins;
                     break;
                 default:
+                    TitreSucces = E_NomEnnemiSucces.NONE;
                     break;
             }
-            switch (NomDeBase)
+            if(TitreSucces == E_NomEnnemiSucces.NONE)
             {
-                // Ile 1
-                case "Arcane Eagle":
-                    TitreSucces = E_NomEnnemiSucces.EvolvedArcaneEagles;
-                    break;
-                case "Harpy":
-                    TitreSucces = E_NomEnnemiSucces.EvolvedHarpies;
-                    break;
-                // Ile 2
-                case "Minotaur":
-                    TitreSucces = E_NomEnnemiSucces.EvolvedMinotaurs;
-                    break;
-                case "SerpentFly":
-                    TitreSucces = E_NomEnnemiSucces.EvolvedSerpentflies;
-                    break;
-                // Ile 3
-                case "Manticore":
-                    TitreSucces = E_NomEnnemiSucces.EvolvedManticores;
-                    break;
-                case "Griffin":
-                    TitreSucces = E_NomEnnemiSucces.EvolvedGriffins;
-                    break;
-                default:
-                    break;
+                switch (NomDeBase)
+                {
+                    // Ile 1
+                    case "Arcane Eagle":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedArcaneEagles;
+                        break;
+                    case "Harpy":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedHarpies;
+                        break;
+                    // Ile 2
+                    case "Minotaur":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedMinotaurs;
+                        break;
+                    case "SerpentFly":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedSerpentflies;
+                        break;
+                    // Ile 3
+                    case "Manticore":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedManticores;
+                        break;
+                    case "Griffin":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedGriffins;
+                        break;
+                    default:
+                        TitreSucces = E_NomEnnemiSucces.NONE;
+                        break;
+                }
             }
         }
 
