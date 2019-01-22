@@ -131,6 +131,8 @@ namespace AppMMEG.Winform
         }
         private void btn_traitement_Click(object sender, EventArgs e)
         {
+            btn_traitement.Text = "Processing...";
+            btn_traitement.Enabled = false;
             GenererPlanTraitement();
 
             AlgorithmeHandler algo = new AlgorithmeHandler(MonPlan);
@@ -158,6 +160,9 @@ namespace AppMMEG.Winform
                     rtbGeneral.AppendText("\n");
                 }
             }
+
+            btn_traitement.Enabled = true;
+            btn_traitement.Text = "Launch Treatment";
         }        
     }
 }

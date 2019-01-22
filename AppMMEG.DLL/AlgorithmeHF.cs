@@ -234,8 +234,6 @@ namespace AppMMEG.DLL
         }
     }
 
-
-
     class AlgoMaxTargetNumberFactory
     {
         // REFACTOR NECESSAIRE DU CODE DE TRAITEMENT DE L'ALGO DE AlgorithmeHandler => ICI
@@ -513,6 +511,9 @@ namespace AppMMEG.DLL
         }
     }
 
+    /// <summary>
+    /// Classe de travail pour l'ago MaxTargetNumberPerEnemi
+    /// </summary>
     public class AlgoMaxTargetNumberPerEnemiSimulationWorker
     {
         private Etage EtageEnCours { get; set; }

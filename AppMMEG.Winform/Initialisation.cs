@@ -276,7 +276,7 @@ namespace AppMMEG.Winform
     /// Mode d'initailisation via fichier d'import 
     /// </summary>
     public static class InitialisationV2
-    {               
+    {
         public static Monde InitialiserMondeIlesMorcelees()
         {
             var importFactory = new import();
@@ -304,49 +304,51 @@ namespace AppMMEG.Winform
             SuccesKill i2c = new SuccesKill(E_NomEnnemiSucces.Serpentflies, 1500);
             SuccesKill i2d = new SuccesKill(E_NomEnnemiSucces.EvolvedMinotaurs, 1500);
             SuccesKill i2e = new SuccesKill(E_NomEnnemiSucces.EvolvedSerpentflies, 1500);
-            //// Succès Zone 3
+            // Succès Zone 3
             SuccesKill i3a = new SuccesKill(E_NomEnnemiSucces.Griffins, 1500);
             SuccesKill i3b = new SuccesKill(E_NomEnnemiSucces.Felicores, 1500);
             SuccesKill i3c = new SuccesKill(E_NomEnnemiSucces.Manticores, 1500);
             SuccesKill i3d = new SuccesKill(E_NomEnnemiSucces.YoungGriffins, 1500);
             SuccesKill i3e = new SuccesKill(E_NomEnnemiSucces.EvolvedManticores, 1500);
             SuccesKill i3f = new SuccesKill(E_NomEnnemiSucces.EvolvedGriffins, 1500);
-            //// Succès Zone 4
-            //SuccesKill i1a = new SuccesKill(E_NomEnnemiSucces.ArcaneBirds, 1500);
-            //SuccesKill i1b = new SuccesKill(E_NomEnnemiSucces.ArcaneEagles, 1500);
-            //SuccesKill i1c = new SuccesKill(E_NomEnnemiSucces.EvolvedArcaneEagles, 1500);
-            //SuccesKill i1d = new SuccesKill(E_NomEnnemiSucces.EvolvedHarpies, 1000);
-            //SuccesKill i1e = new SuccesKill(E_NomEnnemiSucces.Harpies, 1000);
-            //// Succès Zone 5
-            //SuccesKill i1a = new SuccesKill(E_NomEnnemiSucces.ArcaneBirds, 1500);
-            //SuccesKill i1b = new SuccesKill(E_NomEnnemiSucces.ArcaneEagles, 1500);
-            //SuccesKill i1c = new SuccesKill(E_NomEnnemiSucces.EvolvedArcaneEagles, 1500);
-            //SuccesKill i1d = new SuccesKill(E_NomEnnemiSucces.EvolvedHarpies, 1000);
-            //SuccesKill i1e = new SuccesKill(E_NomEnnemiSucces.Harpies, 1000);
-            //// Succès Zone 6
-            //SuccesKill i1a = new SuccesKill(E_NomEnnemiSucces.ArcaneBirds, 1500);
-            //SuccesKill i1b = new SuccesKill(E_NomEnnemiSucces.ArcaneEagles, 1500);
-            //SuccesKill i1c = new SuccesKill(E_NomEnnemiSucces.EvolvedArcaneEagles, 1500);
-            //SuccesKill i1d = new SuccesKill(E_NomEnnemiSucces.EvolvedHarpies, 1000);
-            //SuccesKill i1e = new SuccesKill(E_NomEnnemiSucces.Harpies, 1000);
-            //// Succès Zone 7
-            //SuccesKill i1a = new SuccesKill(E_NomEnnemiSucces.ArcaneBirds, 1500);
-            //SuccesKill i1b = new SuccesKill(E_NomEnnemiSucces.ArcaneEagles, 1500);
-            //SuccesKill i1c = new SuccesKill(E_NomEnnemiSucces.EvolvedArcaneEagles, 1500);
-            //SuccesKill i1d = new SuccesKill(E_NomEnnemiSucces.EvolvedHarpies, 1000);
-            //SuccesKill i1e = new SuccesKill(E_NomEnnemiSucces.Harpies, 1000);
-            //// Succès Zone 8
-            //SuccesKill i1a = new SuccesKill(E_NomEnnemiSucces.ArcaneBirds, 1500);
-            //SuccesKill i1b = new SuccesKill(E_NomEnnemiSucces.ArcaneEagles, 1500);
-            //SuccesKill i1c = new SuccesKill(E_NomEnnemiSucces.EvolvedArcaneEagles, 1500);
-            //SuccesKill i1d = new SuccesKill(E_NomEnnemiSucces.EvolvedHarpies, 1000);
-            //SuccesKill i1e = new SuccesKill(E_NomEnnemiSucces.Harpies, 1000);
-            //// Succès Zone 9
-            //SuccesKill i1a = new SuccesKill(E_NomEnnemiSucces.ArcaneBirds, 1500);
-            //SuccesKill i1b = new SuccesKill(E_NomEnnemiSucces.ArcaneEagles, 1500);
-            //SuccesKill i1c = new SuccesKill(E_NomEnnemiSucces.EvolvedArcaneEagles, 1500);
-            //SuccesKill i1d = new SuccesKill(E_NomEnnemiSucces.EvolvedHarpies, 1000);
-            //SuccesKill i1e = new SuccesKill(E_NomEnnemiSucces.Harpies, 1000);
+            // Succès Zone 4
+            SuccesKill i4a = new SuccesKill(E_NomEnnemiSucces.SpiritCubs, 1500);
+            SuccesKill i4b = new SuccesKill(E_NomEnnemiSucces.SpiritFoxs, 1500);
+            SuccesKill i4c = new SuccesKill(E_NomEnnemiSucces.Centaurs, 1500);
+            SuccesKill i4d = new SuccesKill(E_NomEnnemiSucces.EvolvedSpiritFoxes, 1500);
+            SuccesKill i4e = new SuccesKill(E_NomEnnemiSucces.EvolvedCentaurs, 1500);
+            // Succès Zone 5
+            SuccesKill i5a = new SuccesKill(E_NomEnnemiSucces.MasaruMonks, 1500);
+            SuccesKill i5b = new SuccesKill(E_NomEnnemiSucces.EvolvedMasaruMonks, 1500);
+            SuccesKill i5c = new SuccesKill(E_NomEnnemiSucces.Ninjas, 1500);
+            SuccesKill i5d = new SuccesKill(E_NomEnnemiSucces.EvolvedNinjas, 1500);
+            SuccesKill i5e = new SuccesKill(E_NomEnnemiSucces.Samurais, 1500);
+            SuccesKill i5f = new SuccesKill(E_NomEnnemiSucces.EvolvedSamurais, 1500);
+            // Succès Zone 6
+            SuccesKill i6a = new SuccesKill(E_NomEnnemiSucces.Unicorns, 1500);
+            SuccesKill i6b = new SuccesKill(E_NomEnnemiSucces.EvolvedUnicorns, 1500);
+            SuccesKill i6c = new SuccesKill(E_NomEnnemiSucces.Sprites, 1500);
+            SuccesKill i6d = new SuccesKill(E_NomEnnemiSucces.EvolvedSprites, 1500);
+            SuccesKill i6e = new SuccesKill(E_NomEnnemiSucces.Pixies, 1500);
+            SuccesKill i6f = new SuccesKill(E_NomEnnemiSucces.UnicornFoals, 1500);
+            // Succès Zone 7
+            SuccesKill i7a = new SuccesKill(E_NomEnnemiSucces.SphinxKittens, 1500);
+            SuccesKill i7b = new SuccesKill(E_NomEnnemiSucces.Sphinxs, 1500);
+            SuccesKill i7c = new SuccesKill(E_NomEnnemiSucces.EvolvedSphinxs, 1500);
+            SuccesKill i7d = new SuccesKill(E_NomEnnemiSucces.Djinns, 1500);
+            SuccesKill i7e = new SuccesKill(E_NomEnnemiSucces.EvolvedDjinns, 1500);
+            // Succès Zone 8
+            SuccesKill i8a = new SuccesKill(E_NomEnnemiSucces.RuneSentinels, 1500);
+            SuccesKill i8b = new SuccesKill(E_NomEnnemiSucces.RuneGuardians, 1500);
+            SuccesKill i8c = new SuccesKill(E_NomEnnemiSucces.EvolvedRuneGuardians, 1500);
+            SuccesKill i8d = new SuccesKill(E_NomEnnemiSucces.Shieldguards, 1500);
+            SuccesKill i8e = new SuccesKill(E_NomEnnemiSucces.EvolvedShieldguards, 1500);
+            // Succès Zone 9
+            SuccesKill i9a = new SuccesKill(E_NomEnnemiSucces.Ghosts, 1500);
+            SuccesKill i9b = new SuccesKill(E_NomEnnemiSucces.EvolvedGhosts, 1500);
+            SuccesKill i9c = new SuccesKill(E_NomEnnemiSucces.SoulllessMarionettes, 1500);
+            SuccesKill i9d = new SuccesKill(E_NomEnnemiSucces.SoullessStriders, 1500);
+            SuccesKill i9e = new SuccesKill(E_NomEnnemiSucces.EvolvedSoulless, 1500);
 
             var corresDifficulte = new Dictionary<element.difficulte, E_ModeDifficulte>
             {
@@ -375,27 +377,27 @@ namespace AppMMEG.Winform
                             Ile3.AjouterEnnemi(new Ennemi(elt.szCreature, elt.szCreatureDeBase), elt.iLevel, corresDifficulte[elt.eDifficulte]);
                             break;
                         case element.ile.MysticForest:
-                            Ile4 = Ile4 ?? new Zone(4, element.ile.MysticForest.ToString());
+                            Ile4 = Ile4 ?? new Zone(4, element.ile.MysticForest.ToString()) { MesSucces = new List<Succes>() { i4a, i4b, i4c, i4d, i4e } };
                             Ile4.AjouterEnnemi(new Ennemi(elt.szCreature, elt.szCreatureDeBase), elt.iLevel, corresDifficulte[elt.eDifficulte]);
                             break;
                         case element.ile.SunkenCity:
-                            Ile5 = Ile5 ?? new Zone(5, element.ile.SunkenCity.ToString());
+                            Ile5 = Ile5 ?? new Zone(5, element.ile.SunkenCity.ToString()) { MesSucces = new List<Succes>() { i5a, i5b, i5c, i5d, i5e, i5f } };
                             Ile5.AjouterEnnemi(new Ennemi(elt.szCreature, elt.szCreatureDeBase), elt.iLevel, corresDifficulte[elt.eDifficulte]);
                             break;
                         case element.ile.WorldTreeMountain:
-                            Ile6 = Ile6 ?? new Zone(6, element.ile.WorldTreeMountain.ToString());
+                            Ile6 = Ile6 ?? new Zone(6, element.ile.WorldTreeMountain.ToString()) { MesSucces = new List<Succes>() { i6a, i6b, i6c, i6d, i6e, i6f } };
                             Ile6.AjouterEnnemi(new Ennemi(elt.szCreature, elt.szCreatureDeBase), elt.iLevel, corresDifficulte[elt.eDifficulte]);
                             break;
                         case element.ile.ColossusDesert:
-                            Ile7 = Ile7 ?? new Zone(7, element.ile.ColossusDesert.ToString());
+                            Ile7 = Ile7 ?? new Zone(7, element.ile.ColossusDesert.ToString()) { MesSucces = new List<Succes>() { i7a, i7b, i7c, i7d, i7e } };
                             Ile7.AjouterEnnemi(new Ennemi(elt.szCreature, elt.szCreatureDeBase), elt.iLevel, corresDifficulte[elt.eDifficulte]);
                             break;
                         case element.ile.FireMaze:
-                            Ile8 = Ile8 ?? new Zone(8, element.ile.FireMaze.ToString());
+                            Ile8 = Ile8 ?? new Zone(8, element.ile.FireMaze.ToString()) { MesSucces = new List<Succes>() { i8a, i8b, i8c, i8d, i8e } };
                             Ile8.AjouterEnnemi(new Ennemi(elt.szCreature, elt.szCreatureDeBase), elt.iLevel, corresDifficulte[elt.eDifficulte]);
                             break;
                         case element.ile.Wastelands:
-                            Ile9 = Ile9 ?? new Zone(9, element.ile.Wastelands.ToString());
+                            Ile9 = Ile9 ?? new Zone(9, element.ile.Wastelands.ToString()) { MesSucces = new List<Succes>() { i9a, i9b, i9c, i9d, i9e } };
                             Ile9.AjouterEnnemi(new Ennemi(elt.szCreature, elt.szCreatureDeBase), elt.iLevel, corresDifficulte[elt.eDifficulte]);
                             break;
                         default:

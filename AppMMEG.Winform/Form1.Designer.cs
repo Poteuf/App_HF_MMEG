@@ -41,14 +41,14 @@
             this.rtbGeneral.Dock = System.Windows.Forms.DockStyle.Left;
             this.rtbGeneral.Location = new System.Drawing.Point(0, 0);
             this.rtbGeneral.Name = "rtbGeneral";
-            this.rtbGeneral.Size = new System.Drawing.Size(283, 450);
+            this.rtbGeneral.Size = new System.Drawing.Size(475, 450);
             this.rtbGeneral.TabIndex = 0;
             this.rtbGeneral.Text = "";
             // 
             // cb_Iles
             // 
             this.cb_Iles.FormattingEnabled = true;
-            this.cb_Iles.Location = new System.Drawing.Point(289, 12);
+            this.cb_Iles.Location = new System.Drawing.Point(559, 12);
             this.cb_Iles.Name = "cb_Iles";
             this.cb_Iles.Size = new System.Drawing.Size(334, 21);
             this.cb_Iles.TabIndex = 1;
@@ -62,12 +62,12 @@
             this.panelGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelGeneral.Location = new System.Drawing.Point(0, 0);
             this.panelGeneral.Name = "panelGeneral";
-            this.panelGeneral.Size = new System.Drawing.Size(1203, 450);
+            this.panelGeneral.Size = new System.Drawing.Size(997, 450);
             this.panelGeneral.TabIndex = 2;
             // 
             // btn_traitement
             // 
-            this.btn_traitement.Location = new System.Drawing.Point(289, 356);
+            this.btn_traitement.Location = new System.Drawing.Point(559, 356);
             this.btn_traitement.Name = "btn_traitement";
             this.btn_traitement.Size = new System.Drawing.Size(334, 82);
             this.btn_traitement.TabIndex = 2;
@@ -79,7 +79,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1203, 450);
+            this.ClientSize = new System.Drawing.Size(997, 450);
             this.Controls.Add(this.panelGeneral);
             this.Name = "Form1";
             this.Text = "Form1";

@@ -54,13 +54,45 @@ namespace AppMMEG.DLL
         Manticores,
         YoungGriffins,
         EvolvedManticores,
-        EvolvedGriffins
+        EvolvedGriffins,
         // Zone 4
+        SpiritCubs,
+        SpiritFoxs,
+        Centaurs,
+        EvolvedSpiritFoxes,
+        EvolvedCentaurs,
         // Zone 5
+        MasaruMonks,
+        EvolvedMasaruMonks,
+        Ninjas,
+        EvolvedNinjas,
+        Samurais,
+        EvolvedSamurais,
         // Zone 6
+        Unicorns,
+        EvolvedUnicorns,
+        Sprites,
+        EvolvedSprites,
+        Pixies,
+        UnicornFoals,
         // Zone 7
+        SphinxKittens,
+        Sphinxs,
+        EvolvedSphinxs,
+        Djinns,
+        EvolvedDjinns,
         // Zone 8
+        RuneSentinels,
+        RuneGuardians,
+        EvolvedRuneGuardians,
+        Shieldguards,
+        EvolvedShieldguards,
         // Zone 9
+        Ghosts,
+        EvolvedGhosts,
+        SoulllessMarionettes,
+        SoullessStriders,
+        EvolvedSoulless
     }
 
     public static class MMEGValues
@@ -85,7 +117,45 @@ namespace AppMMEG.DLL
             {E_NomEnnemiSucces.Manticores , new TitreSuccesML(){En = "Manticores", Fr = "---" }  },
             {E_NomEnnemiSucces.YoungGriffins , new TitreSuccesML(){En = "Young Griffins", Fr = "---" }  },
             {E_NomEnnemiSucces.EvolvedManticores , new TitreSuccesML(){En = "Evolved Manticores", Fr = "---" }  },
-            {E_NomEnnemiSucces.EvolvedGriffins , new TitreSuccesML(){En = "Evolved Griffins", Fr = "---" }  }
+            {E_NomEnnemiSucces.EvolvedGriffins , new TitreSuccesML(){En = "Evolved Griffins", Fr = "---" }  },
+            // Ile 4
+            {E_NomEnnemiSucces.SpiritCubs , new TitreSuccesML(){En = "Spirit Cubs", Fr = "---" }  },
+            {E_NomEnnemiSucces.SpiritFoxs , new TitreSuccesML(){En = "Spirit Foxs", Fr = "---" }  },
+            {E_NomEnnemiSucces.Centaurs , new TitreSuccesML(){En = "Centaurs", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedSpiritFoxes , new TitreSuccesML(){En = "Evolved Spirit Foxes", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedCentaurs , new TitreSuccesML(){En = "Evolved Centaurs", Fr = "---" }  },
+            // Ile 5
+            {E_NomEnnemiSucces.MasaruMonks , new TitreSuccesML(){En = "Masaru Monks", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedMasaruMonks , new TitreSuccesML(){En = "Evolved Masaru Monks", Fr = "---" }  },
+            {E_NomEnnemiSucces.Ninjas , new TitreSuccesML(){En = "Ninjas", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedNinjas , new TitreSuccesML(){En = "Evolved Ninjas", Fr = "---" }  },
+            {E_NomEnnemiSucces.Samurais , new TitreSuccesML(){En = "Samurais", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedSamurais , new TitreSuccesML(){En = "Evolved Samurais", Fr = "---" }  },
+            // Ile 6
+            {E_NomEnnemiSucces.Unicorns , new TitreSuccesML(){En = "Unicorns", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedUnicorns , new TitreSuccesML(){En = "Evolved Unicorns", Fr = "---" }  },
+            {E_NomEnnemiSucces.Sprites , new TitreSuccesML(){En = "Sprites", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedSprites , new TitreSuccesML(){En = "Evolved Sprites", Fr = "---" }  },
+            {E_NomEnnemiSucces.Pixies , new TitreSuccesML(){En = "Pixies", Fr = "---" }  },
+            {E_NomEnnemiSucces.UnicornFoals , new TitreSuccesML(){En = "Unicorn Foals", Fr = "---" }  },
+            // Ile 7
+            {E_NomEnnemiSucces.SphinxKittens , new TitreSuccesML(){En = "Sphinx Kittens", Fr = "---" }  },
+            {E_NomEnnemiSucces.Sphinxs , new TitreSuccesML(){En = "Sphinxs", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedSphinxs , new TitreSuccesML(){En = "Evolved Sphinxs", Fr = "---" }  },
+            {E_NomEnnemiSucces.Djinns , new TitreSuccesML(){En = "Djinns", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedDjinns , new TitreSuccesML(){En = "Evolved Djinns", Fr = "---" }  },
+            // Ile 8
+            {E_NomEnnemiSucces.RuneSentinels , new TitreSuccesML(){En = "Rune Sentinels", Fr = "---" }  },
+            {E_NomEnnemiSucces.RuneGuardians , new TitreSuccesML(){En = "Rune Guardians", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedRuneGuardians , new TitreSuccesML(){En = "Evolved Rune Guardians", Fr = "---" }  },
+            {E_NomEnnemiSucces.Shieldguards , new TitreSuccesML(){En = "Shieldguards", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedShieldguards , new TitreSuccesML(){En = "Evolved Shieldguards", Fr = "---" }  },
+            // Ile 9
+            {E_NomEnnemiSucces.Ghosts , new TitreSuccesML(){En = "Ghosts", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedGhosts , new TitreSuccesML(){En = "Evolved Ghosts", Fr = "---" }  },
+            {E_NomEnnemiSucces.SoulllessMarionettes , new TitreSuccesML(){En = "Soullless Marionettes", Fr = "---" }  },
+            {E_NomEnnemiSucces.SoullessStriders , new TitreSuccesML(){En = "Soulless Striders", Fr = "---" }  },
+            {E_NomEnnemiSucces.EvolvedSoulless , new TitreSuccesML(){En = "Evolved Soulless", Fr = "---" }  }
         };
     }
     public class TitreSuccesML
@@ -419,11 +489,74 @@ namespace AppMMEG.DLL
                 case "Young Griffin":
                     TitreSucces = E_NomEnnemiSucces.YoungGriffins;
                     break;
+                // Ile 4
+                case "Spirit Cub":
+                    TitreSucces = E_NomEnnemiSucces.SpiritCubs;
+                    break;
+                case "Spirit Fox":
+                    TitreSucces = E_NomEnnemiSucces.SpiritFoxs;
+                    break;
+                case "Centaur":
+                    TitreSucces = E_NomEnnemiSucces.Centaurs;
+                    break;
+                // Ile 5
+                case "Bunraku Samurai":
+                    TitreSucces = E_NomEnnemiSucces.Samurais;
+                    break;
+                case "Kabuki Ninja":
+                    TitreSucces = E_NomEnnemiSucces.Ninjas;
+                    break;
+                case "Masaru Monk":
+                    TitreSucces = E_NomEnnemiSucces.MasaruMonks;
+                    break;
+                // Ile 6
+                case "Unicorn Foal":
+                    TitreSucces = E_NomEnnemiSucces.UnicornFoals;
+                    break;
+                case "Unicorn":
+                    TitreSucces = E_NomEnnemiSucces.Unicorns;
+                    break;
+                case "Sprite":
+                    TitreSucces = E_NomEnnemiSucces.Sprites;
+                    break;
+                case "Pixie":
+                    TitreSucces = E_NomEnnemiSucces.Pixies;
+                    break;
+                // Ile 7
+                case "Sphinx Kitten":
+                    TitreSucces = E_NomEnnemiSucces.SphinxKittens;
+                    break;
+                case "Sphinx":
+                    TitreSucces = E_NomEnnemiSucces.Sphinxs;
+                    break;
+                case "Djinn":
+                    TitreSucces = E_NomEnnemiSucces.Djinns;
+                    break;
+                // Ile 8
+                case "Rune Sentinel":
+                    TitreSucces = E_NomEnnemiSucces.RuneSentinels;
+                    break;
+                case "Rune Guardian":
+                    TitreSucces = E_NomEnnemiSucces.RuneGuardians;
+                    break;
+                case "Shieldguard":
+                    TitreSucces = E_NomEnnemiSucces.Shieldguards;
+                    break;
+                // Ile 9
+                case "Ghost":
+                    TitreSucces = E_NomEnnemiSucces.Ghosts;
+                    break;
+                case "Soulless Marionette":
+                    TitreSucces = E_NomEnnemiSucces.SoulllessMarionettes;
+                    break;
+                case "Soulless Strider":
+                    TitreSucces = E_NomEnnemiSucces.SoullessStriders;
+                    break;
                 default:
                     TitreSucces = E_NomEnnemiSucces.NONE;
                     break;
             }
-            if(TitreSucces == E_NomEnnemiSucces.NONE)
+            if (TitreSucces == E_NomEnnemiSucces.NONE)
             {
                 switch (NomDeBase)
                 {
@@ -447,6 +580,51 @@ namespace AppMMEG.DLL
                         break;
                     case "Griffin":
                         TitreSucces = E_NomEnnemiSucces.EvolvedGriffins;
+                        break;
+                    // Ile 4
+                    case "Spirit Fox":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedSpiritFoxes;
+                        break;
+                    case "Centaur":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedCentaurs;
+                        break;
+                    // Ile 5
+                    case "Bunraku Samurai":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedSamurais;
+                        break;
+                    case "Kabuki Ninja":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedNinjas;
+                        break;
+                    case "Masaru Monk":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedMasaruMonks;
+                        break;
+                    // Ile 6
+                    case "Unicorn":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedUnicorns;
+                        break;
+                    case "Sprite":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedSprites;
+                        break;
+                    // Ile 7
+                    case "Sphinx":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedSphinxs;
+                        break;
+                    case "Djinn":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedDjinns;
+                        break;
+                    // Ile 8
+                    case "Rune Guardian":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedRuneGuardians;
+                        break;
+                    case "Shieldguard":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedShieldguards;
+                        break;
+                    // Ile 9
+                    case "Ghost":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedGhosts;
+                        break;
+                    case "Soulless Strider":
+                        TitreSucces = E_NomEnnemiSucces.EvolvedSoulless;
                         break;
                     default:
                         TitreSucces = E_NomEnnemiSucces.NONE;
