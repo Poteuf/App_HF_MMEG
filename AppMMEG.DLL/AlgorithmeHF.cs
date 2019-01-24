@@ -31,22 +31,6 @@ namespace AppMMEG.DLL
         public List<MaxTargetNumberSimulationWorker> MesRunsPossibles { get; set; }
     }
 
-    //public class Scenario
-    //{
-    //    public Scenario(Etage etg, int nbRuns)
-    //    {
-
-    //    }
-
-    //    public Dictionary<Etage, uint> MesRuns { get; set; }
-    //}
-
-    //public class Run
-    //{
-    //    public string NomZone { get; set; }
-    //    public Etage EtageParcouru { get; set; }
-    //}
-
     public class AlgorithmeHandler
     {
         private List<MaxTargetNumberSimulationWorker> MesScenarii { get; set; }
@@ -514,10 +498,10 @@ namespace AppMMEG.DLL
     /// <summary>
     /// Classe de travail pour l'ago MaxTargetNumberPerEnemi
     /// </summary>
-    public class AlgoMaxTargetNumberPerEnemiSimulationWorker
+    public class AlgoMaxTargetNumberPerEnemiSimulationWorker : IEquatable<AlgoMaxTargetNumberPerEnemiSimulationWorker>
     {
         private Etage EtageEnCours { get; set; }
-        private E_NomEnnemiSucces TypeEnnemiEnCours { get;set;}
+        private E_NomEnnemiSucces TypeEnnemiEnCours { get; set; }
         public Dictionary<E_NomEnnemiSucces, uint> CiblesAAbattre { get; set; }
         private int Overkills { get; set; }
         private Dictionary<Etage, int> EtagesEffectues { get; set; }
@@ -613,6 +597,35 @@ namespace AppMMEG.DLL
                 }
                 EtagesEffectues[EtageEnCours]++;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as AlgoMaxTargetNumberPerEnemiSimulationWorker);
+        }
+
+        public bool Equals(AlgoMaxTargetNumberPerEnemiSimulationWorker other)
+        {
+            if (other.EtagesEffectues.Count() == EtagesEffectues.Count())
+            {
+                foreach (var item in other.EtagesEffectues)
+                {
+                    if (!EtagesEffectues.Contains(item))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 622057680;
+            //hashCode = hashCode * -1521134295 + Overkills.GetHashCode();
+            //hashCode = hashCode * -1521134295 + EqualityComparer<Dictionary<Etage, int>>.Default.GetHashCode(EtagesEffectues);
+            return hashCode;
         }
     }
 }

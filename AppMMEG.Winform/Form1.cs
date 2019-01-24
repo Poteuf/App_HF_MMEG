@@ -25,19 +25,11 @@ namespace AppMMEG.Winform
             rtbGeneral.ForeColor = Color.DarkRed;
             rtbGeneral.AppendText("Salut, bienvenue sur l'optimiseur de HF pour MMEG\n\n\n");
 
-            var truc = new import();
-            var bidule = truc.construireListElement();
-
             GenererMonde();
 
-
-
             // Initialisation affichage
-
             cb_Iles.DataSource = MonMonde.MesZones.ToList();
             cb_Iles.DisplayMember = "NomFormate";
-
-            //AfficherInfosMonde();
         }
 
         private void GenererMonde()
