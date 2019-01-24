@@ -22,7 +22,8 @@ namespace AppMMEG.Winform
         {
             InitializeComponent();
 
-            rtbGeneral.ForeColor = Color.DarkRed;
+            rtbGeneral.BackColor = Color.Black;
+            rtbGeneral.ForeColor = Color.WhiteSmoke;
             rtbGeneral.AppendText("Salut, bienvenue sur l'optimiseur de HF pour MMEG\n\n\n");
 
             GenererMonde();
@@ -112,6 +113,7 @@ namespace AppMMEG.Winform
                         if (panelGeneral.Controls.Find(Name = $"pnl_{achiev.CreatureAKill.ToString()}", false).Count() == 0)
                         {
                             SuccessKillPanel skp = new SuccessKillPanel(achiev, mySelectedArea.Numero);
+                            skp.Font = new Font(rtbGeneral.Font, FontStyle.Regular);
                             panelGeneral.Controls.Add(skp);
                             skp.Location = new Point(cb_Iles.Location.X, cb_Iles.Location.Y + 25 + 30 * i);
 
@@ -139,14 +141,62 @@ namespace AppMMEG.Winform
             else
             {
                 rtbGeneral.AppendText("Traitement terminé\n");
-                rtbGeneral.AppendText($"{result.Count()} simulations effectuées\n");
+                rtbGeneral.AppendText($"-{result.Count()} simulations effectuées\n\n");
                 int j = 1;
-                foreach (var scenar in result.Where(u => u.NbDeRunTotal() == result.Min(f => f.NbDeRunTotal())).Distinct())
+
+                rtbGeneral.AppendText($"----- Scenarii nécessitants le moins de runs -----\n\n");
+                foreach (var scenar in result.Where(u => u.NbDeRunTotal == result.Min(f => f.NbDeRunTotal)).Distinct().OrderBy(g => g.CoutTotalScenario))
                 {
-                    rtbGeneral.AppendText($"--+-- Scenario le plus performant ({j}) - {scenar.NbDeRunTotal()} Runs - {scenar.CoutTotalScenario()} Energie :\n\n");
-                    foreach (var item in scenar.ObtenirLesRun())
+                    rtbGeneral.AppendText($"=> Scenario ({j}) - {scenar.NbDeRunTotal} Runs - {scenar.CoutTotalScenario} Energie :\n");
+
+                    foreach (var item in scenar.EtagesEffectues.Where(f => f.Value != 0).OrderByDescending(k => k.Value))
                     {
-                        rtbGeneral.AppendText($"{item}\n");
+                        Color mycolor = new Color();
+                        switch (item.Key.Difficulte)
+                        {
+                            case E_ModeDifficulte.Normal:
+                                mycolor = Color.Turquoise;
+                                break;
+                            case E_ModeDifficulte.Avance:
+                                mycolor = Color.Yellow;
+                                break;
+                            case E_ModeDifficulte.Cauchemard:
+                                mycolor = Color.MediumPurple;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        AppendText(rtbGeneral, mycolor, $" - {item.Value} runs sur l'étage {item.Key.Numero} en {item.Key.Difficulte.ToString()} ({item.Key.NomZone})\n");
+                    }
+                    j++;
+                    rtbGeneral.AppendText("\n");
+                }
+
+                rtbGeneral.AppendText($"----- Scenarii nécessitants le moins d'énergie -----\n\n");
+                foreach (var scenar in result.Where(u => u.CoutTotalScenario == result.Min(f => f.CoutTotalScenario)).Distinct().OrderBy(g => g.NbDeRunTotal))
+                {
+                    rtbGeneral.AppendText($"=> Scenario ({j}) - {scenar.NbDeRunTotal} Runs - {scenar.CoutTotalScenario} Energie :\n");
+
+                    foreach (var item in scenar.EtagesEffectues.Where(f => f.Value != 0).OrderByDescending(k => k.Value))
+                    {
+                        Color mycolor = new Color();
+                        switch (item.Key.Difficulte)
+                        {
+                            case E_ModeDifficulte.Normal:
+                                mycolor = Color.Turquoise;
+                                break;
+                            case E_ModeDifficulte.Avance:
+                                mycolor = Color.Yellow;
+                                break;
+                            case E_ModeDifficulte.Cauchemard:
+                                mycolor = Color.MediumPurple;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        AppendText(rtbGeneral, mycolor, $" - {item.Value} runs sur l'étage {item.Key.Numero} en {item.Key.Difficulte.ToString()} ({item.Key.NomZone})\n");
                     }
                     j++;
                     rtbGeneral.AppendText("\n");
@@ -155,6 +205,26 @@ namespace AppMMEG.Winform
 
             btn_traitement.Enabled = true;
             btn_traitement.Text = "Launch Treatment";
-        }        
+        }
+
+        void AppendText(RichTextBox box, Color color, string text)
+        {
+            int start = box.TextLength;
+            box.AppendText(text);
+            int end = box.TextLength;
+
+            // Textbox may transform chars, so (end-start) != text.Length
+            box.Select(start, end - start);
+            {
+                box.SelectionColor = color;
+                // could set box.SelectionBackColor, box.SelectionFont too.
+            }
+            box.SelectionLength = 0; // clear
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

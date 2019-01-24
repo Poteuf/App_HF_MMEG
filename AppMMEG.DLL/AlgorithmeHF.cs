@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AppMMEG.DLL
@@ -422,7 +423,7 @@ namespace AppMMEG.DLL
     {
         private PlanTraitement PlanGeneral { get; set; }
         private List<AlgoMaxTargetNumberPerEnemiSimulationWorker> Scenarii { get; set; }
-
+               
         public AlgoMaxTargetNumberPerEnemiFactory(PlanTraitement lePlan)
         {
             PlanGeneral = lePlan;
@@ -504,7 +505,9 @@ namespace AppMMEG.DLL
         private E_NomEnnemiSucces TypeEnnemiEnCours { get; set; }
         public Dictionary<E_NomEnnemiSucces, uint> CiblesAAbattre { get; set; }
         private int Overkills { get; set; }
-        private Dictionary<Etage, int> EtagesEffectues { get; set; }
+        public Dictionary<Etage, int> EtagesEffectues { get; set; }
+        public int NbDeRunTotal { get; set; }
+        public int CoutTotalScenario { get; set; }
 
         internal AlgoMaxTargetNumberPerEnemiSimulationWorker(Etage etageEnCours, E_NomEnnemiSucces typeEnnemiEnCours, AlgoMaxTargetNumberPerEnemiSimulationWorker oldWorker)
         {
@@ -517,6 +520,8 @@ namespace AppMMEG.DLL
             Overkills = oldWorker.Overkills;
             EtageEnCours = etageEnCours;
             TypeEnnemiEnCours = typeEnnemiEnCours;
+            NbDeRunTotal = oldWorker.NbDeRunTotal;
+            CoutTotalScenario = oldWorker.CoutTotalScenario;
         }
 
         internal AlgoMaxTargetNumberPerEnemiSimulationWorker(Etage etageEnCours, E_NomEnnemiSucces typeEnnemiEnCours, Dictionary<E_NomEnnemiSucces, uint> cibles)
@@ -526,6 +531,8 @@ namespace AppMMEG.DLL
             TypeEnnemiEnCours = typeEnnemiEnCours;
             CiblesAAbattre = cibles.ToDictionary(x => x.Key, x => x.Value);
             Overkills = 0;
+            NbDeRunTotal = 0;
+            CoutTotalScenario = 0;
         }
 
         private bool IsCiblesRestantesEtageActuel()
@@ -547,31 +554,6 @@ namespace AppMMEG.DLL
                 if (cible.Value > 0) { return true; }
             }
             return false;
-        }
-
-        public int NbDeRunTotal()
-        {
-            return EtagesEffectues.Sum(f => f.Value);
-        }
-
-        public List<string> ObtenirLesRun()
-        {
-            var maListe = new List<string>();
-            foreach (var item in EtagesEffectues.Where(f => f.Value != 0).OrderByDescending(k => k.Value))
-            {
-                maListe.Add($"{item.Value} runs sur l'étage {item.Key.Numero} en {item.Key.Difficulte.ToString()} ({item.Key.NomZone})");
-            }
-            return maListe;
-        }
-
-        public int CoutTotalScenario()
-        {
-            int result = 0;
-            foreach (var etg in EtagesEffectues)
-            {
-                result += etg.Key.Cout * etg.Value;
-            }
-            return result;
         }
 
         /// <summary>
@@ -596,6 +578,8 @@ namespace AppMMEG.DLL
                     }
                 }
                 EtagesEffectues[EtageEnCours]++;
+                NbDeRunTotal++;
+                CoutTotalScenario += EtageEnCours.Cout;
             }
         }
 
