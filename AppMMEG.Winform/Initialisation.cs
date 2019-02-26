@@ -348,7 +348,7 @@ namespace AppMMEG.Winform
             SuccesKill i9b = new SuccesKill(E_NomEnnemiSucces.EvolvedGhosts, 1500);
             SuccesKill i9c = new SuccesKill(E_NomEnnemiSucces.SoulllessMarionettes, 1500);
             SuccesKill i9d = new SuccesKill(E_NomEnnemiSucces.SoullessStriders, 1500);
-            SuccesKill i9e = new SuccesKill(E_NomEnnemiSucces.EvolvedSoulless, 1500);
+            SuccesKill i9e = new SuccesKill(E_NomEnnemiSucces.EvolvedSoulless, 1000);
 
             var corresDifficulte = new Dictionary<element.difficulte, E_ModeDifficulte>
             {

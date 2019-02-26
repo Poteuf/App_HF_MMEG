@@ -15,11 +15,11 @@ namespace AppMMEG.Winform
         public SuccesKill Achiev { get; }
         public int NbRefArea { get; }
 
-        public uint NbRestToKill { get { return Achiev.Nombre - uint.Parse(TextBoxActualKills.Text); } }
+        public uint NbRestToKill { get { return Achiev.Nombre - Convert.ToUInt32(NumericUPKills.Value); } }
 
         private Label LabelTitle { get; set; }
         private Label LabelMaxKills { get; set; }
-        private TextBox TextBoxActualKills { get; set; }
+        private NumericUpDown NumericUPKills { get; set; }
 
         private const int C_SIZE_LABEL_TITLE = 150;
 
@@ -43,26 +43,29 @@ namespace AppMMEG.Winform
             };
             Controls.Add(LabelTitle);
 
-            // On gère la textBox
-            TextBoxActualKills = new TextBox
+            // On gère la NumericUpDown
+            NumericUPKills = new NumericUpDown
             {
                 Name = $"tb_{Achiev.CreatureAKill.ToString()}",
                 Location = new Point(C_SIZE_LABEL_TITLE + 5, 0),
                 RightToLeft = RightToLeft.Yes,
-                Text = "0"
+                Value = 0,
+                Minimum = 0,
+                Maximum = Achiev.Nombre,
+                DecimalPlaces = 0,
+                ThousandsSeparator = true
             };
-            TextBoxActualKills.TextChanged += new EventHandler(tb_ControlValue);
-            TextBoxActualKills.KeyPress += new KeyPressEventHandler(tb_ControlKeyPress);
-            TextBoxActualKills.Validated += new EventHandler(tb_ControlValidated);
-            Controls.Add(TextBoxActualKills);
+            NumericUPKills.Controls.RemoveAt(0);
+            Controls.Add(NumericUPKills);
 
             // On gère le label des kills à faire
             LabelMaxKills = new Label
             {
                 Name = $"lblMax_{Achiev.CreatureAKill.ToString()}",
                 Text = $"/ {Achiev.Nombre.ToString()}",
-                Location = new Point(C_SIZE_LABEL_TITLE + TextBoxActualKills.Width + 10, 4)
+                Location = new Point(C_SIZE_LABEL_TITLE + NumericUPKills.Width + 10, 4)
             };
+            LabelMaxKills.Click += new EventHandler(nud_ControlClick);
             Controls.Add(LabelMaxKills);
         }
 
@@ -70,34 +73,16 @@ namespace AppMMEG.Winform
         {
             Visible = isVisible;
         }
+
         public Boolean IsVisible()
         {
-            return LabelTitle.Visible && LabelMaxKills.Visible && TextBoxActualKills.Visible;
+            return LabelTitle.Visible && LabelMaxKills.Visible && NumericUPKills.Visible;
         }
 
-        private void tb_ControlKeyPress(object sender, KeyPressEventArgs e)
+        private void nud_ControlClick(object sender, EventArgs e)
         {
-            if (!Regex.IsMatch(e.KeyChar.ToString(), @"^[0-9]*$"))
-            {
-                e.Handled = true;
-            }
-        }
-        private void tb_ControlValue(object sender, EventArgs e)
-        {
-            var myTb = (TextBox)sender;
-
-            if (myTb.Text != "" && int.Parse(myTb.Text) > Achiev.Nombre)
-            {
-                myTb.Text = "0";
-            }
-        }
-        private void tb_ControlValidated(object sender, EventArgs e)
-        {
-            if (((TextBox)sender).Text == "")
-            {
-                ((TextBox)sender).Text = "0";
-            }
-        }
+            NumericUPKills.Value = Achiev.Nombre;
+        }        
     }
 }
 
